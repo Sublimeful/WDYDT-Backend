@@ -1,0 +1,7 @@
+{
+  "*.ts": [
+    "prettier --check",
+    "tsc --noEmit",
+    "eslint --max-warnings 0"
+  ]
+}

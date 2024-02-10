@@ -1,0 +1,38 @@
+{
+  "type": "module",
+  "name": "wdydt-backend",
+  "version": "1.0.0",
+  "description": "Mental Health Awareness - Backend",
+  "main": "index.ts",
+  "scripts": {
+    "start": "tsx index.ts",
+    "dev": "tsx index.ts",
+    "ci:format": "prettier . --check",
+    "ci:typecheck": "tsc --project tsconfig.json --noEmit",
+    "ci:lint": "eslint --max-warnings 0 **.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sublimeful/WDYDT-Backend.git"
+  },
+  "author": "Sublimeful",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sublimeful/WDYDT-Backend/issues"
+  },
+  "homepage": "https://github.com/Sublimeful/WDYDT-Backend#readme",
+  "dependencies": {
+    "koa": "^2.15.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.0.10",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  }
+}
