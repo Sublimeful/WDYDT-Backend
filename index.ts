@@ -5,11 +5,9 @@ import Router from "@koa/router";
 import { koaBody } from "koa-body";
 import dotenv from "dotenv";
 import {
-  createEncouragement,
   createMessage,
   createReply,
   fetchReplies,
-  getEncouragementsCreatedToday,
   getMessagesCreatedToday,
 } from "./src/utils/pg.js";
 
@@ -39,10 +37,6 @@ router
     ctx.body = await getMessagesCreatedToday(db);
     ctx.status = 200;
   })
-  .get("/encouragements_today", async (ctx) => {
-    ctx.body = await getEncouragementsCreatedToday(db);
-    ctx.status = 200;
-  })
   .get("/fetch_replies", async (ctx) => {
     if (
       !(
@@ -69,17 +63,7 @@ router
     await createMessage(db, ctx.request.body["content"]);
     ctx.status = 201;
   })
-  .post("/create_encouragement", async (ctx) => {
-    if (!("content" in ctx.request.body)) {
-      ctx.throw("Incorrect request body", 400);
-      return;
-    }
-
-    await createEncouragement(db, ctx.request.body["content"]);
-    ctx.status = 201;
-  })
   .post("/create_reply", async (ctx) => {
-    // TODO: Handle error case when user tries to reply to an encouragement
     // TODO: Disavow user from replying to a message not created today
 
     if (
