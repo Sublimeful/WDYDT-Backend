@@ -1,5 +1,6 @@
 import pg from "pg";
 import Koa from "koa";
+import cors from "@koa/cors";
 import Router from "@koa/router";
 import { koaBody } from "koa-body";
 import dotenv from "dotenv";
@@ -99,7 +100,11 @@ router
     ctx.status = 201;
   });
 
-app.use(koaBody()).use(router.routes()).use(router.allowedMethods());
+app
+  .use(cors())
+  .use(koaBody())
+  .use(router.routes())
+  .use(router.allowedMethods());
 
 app.listen(SERVER_PORT);
 
