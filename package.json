@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Sublimeful/WDYDT-Backend#readme",
   "dependencies": {
+    "@types/node": "^20.11.17",
     "dotenv": "^16.4.1",
     "koa": "^2.15.0",
     "pg": "^8.11.3"
