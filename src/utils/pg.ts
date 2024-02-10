@@ -8,3 +8,11 @@ export const createMessage = async (db: pg.Pool, content: string) => {
     [random_uuid, content, "now"],
   );
 };
+
+export const getMessagesCreatedToday = async (db: pg.Pool) => {
+  return (
+    await db.query(
+      "SELECT * FROM Messages WHERE to_char(timestamp, 'MM-DD') = to_char(Now(), 'MM-DD')",
+    )
+  )["rows"];
+};

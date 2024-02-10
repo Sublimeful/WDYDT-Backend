@@ -22,13 +22,17 @@
   },
   "homepage": "https://github.com/Sublimeful/WDYDT-Backend#readme",
   "dependencies": {
+    "@koa/router": "^12.0.1",
+    "@types/koa-bodyparser": "^4.3.12",
     "@types/node": "^20.11.17",
     "dotenv": "^16.4.1",
     "koa": "^2.15.0",
+    "koa-body": "^6.0.1",
     "pg": "^8.11.3"
   },
   "devDependencies": {
     "@types/koa": "^2.14.0",
+    "@types/koa__router": "^12.0.4",
     "@types/pg": "^8.11.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
