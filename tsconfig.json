@@ -1,20 +1,20 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "target": "ESNext",
-    "lib": ["ESNext"],
     "useDefineForClassFields": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "allowJS": true,
-    "checkJS": true,
+    "allowJs": true,
+    "checkJs": true,
     "strict": true,
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "outDir": "dist",
-    "baseUrl": ".",
+    "baseUrl": "."
   },
-  "include": ["src/**/*", "*.ts"],
+  "include": ["src/**/*", "*.ts"]
 }
