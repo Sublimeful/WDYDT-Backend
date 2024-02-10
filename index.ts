@@ -3,7 +3,14 @@ import Koa from "koa";
 import Router from "@koa/router";
 import { koaBody } from "koa-body";
 import dotenv from "dotenv";
-import { createMessage, getMessagesCreatedToday } from "./src/utils/pg.js";
+import {
+  createEncouragement,
+  createMessage,
+  createReply,
+  fetchReplies,
+  getEncouragementsCreatedToday,
+  getMessagesCreatedToday,
+} from "./src/utils/pg.js";
 
 dotenv.config({});
 
@@ -28,16 +35,67 @@ const router = new Router();
 
 router
   .get("/messages_today", async (ctx) => {
-    const messages = await getMessagesCreatedToday(db);
-    ctx.body = JSON.stringify(messages);
+    ctx.body = await getMessagesCreatedToday(db);
+    ctx.status = 200;
   })
-  .post("/create_message", async (ctx) => {
-    if (!("message" in ctx.request.body)) {
+  .get("/encouragements_today", async (ctx) => {
+    ctx.body = await getEncouragementsCreatedToday(db);
+    ctx.status = 200;
+  })
+  .get("/fetch_replies", async (ctx) => {
+    if (
+      !(
+        "reply_message_uuid" in ctx.request.query &&
+        ctx.request.query["reply_message_uuid"]
+      )
+    ) {
       ctx.throw("Incorrect request body", 400);
       return;
     }
 
-    await createMessage(db, ctx.request.body["message"]);
+    ctx.body = await fetchReplies(
+      db,
+      ctx.request.query["reply_message_uuid"].toString(),
+    );
+    ctx.status = 200;
+  })
+  .post("/create_message", async (ctx) => {
+    if (!("content" in ctx.request.body)) {
+      ctx.throw("Incorrect request body", 400);
+      return;
+    }
+
+    await createMessage(db, ctx.request.body["content"]);
+    ctx.status = 201;
+  })
+  .post("/create_encouragement", async (ctx) => {
+    if (!("content" in ctx.request.body)) {
+      ctx.throw("Incorrect request body", 400);
+      return;
+    }
+
+    await createEncouragement(db, ctx.request.body["content"]);
+    ctx.status = 201;
+  })
+  .post("/create_reply", async (ctx) => {
+    // TODO: Handle error case when user tries to reply to an encouragement
+    // TODO: Disavow user from replying to a message not created today
+
+    if (
+      !(
+        "reply_message_uuid" in ctx.request.body &&
+        "content" in ctx.request.body
+      )
+    ) {
+      ctx.throw("Incorrect request body", 400);
+      return;
+    }
+
+    await createReply(
+      db,
+      ctx.request.body["reply_message_uuid"],
+      ctx.request.body["content"],
+    );
     ctx.status = 201;
   });
 
