@@ -4,10 +4,6 @@ import cors from "@koa/cors";
 import Router from "@koa/router";
 import { koaBody } from "koa-body";
 import dotenv from "dotenv";
-import https from "https";
-import fs from "fs";
-const privateKey = fs.readFileSync("./cert/privkey.pem");
-const certificate = fs.readFileSync("./cert/cert.pem");
 import {
   createMessage,
   createReply,
@@ -96,7 +92,4 @@ app
 
 console.log(`Server started on port ${SERVER_PORT}`);
 
-https.createServer({
-  key: privateKey,
-  cert: certificate,
-}, app.callback()).listen(SERVER_PORT);
+app.listen(SERVER_PORT);
